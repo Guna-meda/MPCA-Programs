@@ -1,0 +1,17 @@
+.DATA
+Y: .WORD 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+.TEXT
+LDR R1, =Y
+
+MOV R0, #0
+MOV R2, #4
+MOV R3, #2
+
+LOOP:
+STR R3, [R1, R0, LSL #2]
+ADD R0, R0, #5
+SUBS R2, R2, #1
+BNE LOOP
+
+SWI 0x011

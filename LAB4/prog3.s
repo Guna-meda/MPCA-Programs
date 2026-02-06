@@ -1,0 +1,21 @@
+.DATA
+X: .WORD 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
+Y: .WORD 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+.TEXT
+LDR R0, =X       
+LDR R1, =Y        
+
+MOV R10, #2      
+
+LOOP:
+LDMIA R0!, {R2-R7}   
+STMIA R1!, {R2-R7}   
+SUB R10, R10, #1
+CMP R10, #0
+BNE LOOP
+LDMIA R0!, {R2-R5}   
+STMIA R1!, {R2-R5}  
+BEQ EXIT
+EXIT:
+SWI 0x011
