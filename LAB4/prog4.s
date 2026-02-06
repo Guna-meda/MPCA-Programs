@@ -1,0 +1,35 @@
+.DATA
+A: .WORD 1,2,3,4,5,6,7,8,9
+B: .WORD 9,8,7,6,5,4,3,2,1
+C: .WORD 0,0,0,0,0,0,0,0,0
+
+.TEXT
+LDR R0, =A
+LDR R1, =B
+LDR R2, =C
+
+MOV R3, #0
+MOV R4, #3
+
+ROW:
+MOV R5, #0
+MOV R6, #3
+
+COL:
+MLA R7, R3, R6, R5
+MOV R7, R7, LSL #2
+
+LDR R8, [R0, R7]
+LDR R9, [R1, R7]
+ADD R8, R8, R9
+STR R8, [R2, R7]
+
+ADD R5, R5, #1
+SUBS R6, R6, #1
+BNE COL
+
+ADD R3, R3, #1
+CMP R3, #3
+BNE ROW
+
+SWI 0x011
